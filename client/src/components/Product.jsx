@@ -71,6 +71,7 @@ const Product = ({ item }) => {
     <Container>
       <Circle />
       <Image src={item.img} />
+    
       <Info>
         <Icon>
           <ShoppingCartIcon color="action" />

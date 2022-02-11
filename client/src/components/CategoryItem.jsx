@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 
@@ -12,7 +13,7 @@ const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  ${mobile({height:"20vh" })}
+  ${mobile({ height: "20vh" })}
 `;
 
 const Info = styled.div`
@@ -43,11 +44,13 @@ const IButton = styled.button`
 const CategoryItem = ({ item }) => {
   return (
     <Container>
-      <Image src={item.img} />
-      <Info>
-        <Title>{item.title}</Title>
-        <IButton>SHOP NOW</IButton>
-      </Info>
+      <Link to={`/products/${item.cat}`}>
+        <Image src={item.img} />
+        <Info>
+          <Title>{item.title}</Title>
+          <IButton>SHOP NOW</IButton>
+        </Info>
+      </Link>
     </Container>
   );
 };
