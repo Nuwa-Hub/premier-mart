@@ -9,19 +9,18 @@ const Container = styled.div`
   flex-wrap: wrap;
   justify-content: space-between; ;
 `;
-const Products = (cat, filters, sort) => {
+const Products = ({ cat, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  useState(() => {
+  useEffect(() => {
     const getProducts = async () => {
       try {
         const res = await axios.get(
           cat
-            ? "http://localhost:5000/api/products"
+            ? `http://localhost:5000/api/products?category=${cat}`
             : "http://localhost:5000/api/products"
         );
-        //  console.log({ cat }, res);
         setProducts(res.data);
       } catch (err) {}
     };
@@ -39,7 +38,8 @@ const Products = (cat, filters, sort) => {
       );
   }, [products, cat, filters]);
 
-console.log(filteredProducts);
+
+console.log(cat);
 
   return (
     <Container>

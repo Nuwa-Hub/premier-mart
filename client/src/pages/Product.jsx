@@ -20,7 +20,7 @@ const ImageContainer = styled.div`
 `;
 const Image = styled.img`
   width: 100%;
-  hight: 60vh;
+  height: 60vh;
   object-fit: cover;
   ${mobile({height:"40vh" })}
 `;
@@ -30,13 +30,13 @@ const InfoContainer = styled.div`
   ${mobile({padding:"10px" })}
 `;
 const Title = styled.h1`
-  font-wight: 200;
+  font-weight: 200;
 `;
 const Desc = styled.p`
   margin: 20px 0px;
 `;
 const Price = styled.span`
-  font-wight: 100;
+  font-weight: 100;
   font-size: 40px;
 `;
 
@@ -94,7 +94,7 @@ padding:15px;
 border:3px solid teal;
 background-color:white;
 cursor:pointer;
-font-weght:500;
+font-weight:500;
 
 &:hover{
   background-color:#f8f4f4;

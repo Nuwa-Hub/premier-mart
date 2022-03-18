@@ -25,7 +25,7 @@ const Top = styled.div`
 
 const TopButton = styled.button`
   padding: 10px;
-  font-weigth: 600;
+  font-weight: 600;
   cursor: pointer;
   border: ${(props) => props.type === "filled" && "none"};
   background-color: ${(props) =>
