@@ -4,6 +4,8 @@ import SavedSearch from "@mui/icons-material/SavedSearch";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Badge } from "@mui/material";
 import { mobile } from "../responsive";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 
 const Container = styled.div`
@@ -64,6 +66,7 @@ const MenuItem = styled.div`
   ${mobile({ fontSize: "12px",marginLeft:"10px" })}
 `;
 const Navbar = () => {
+  const quantity = useSelector(state=>state.cart.quantity)
   return (
     <Container>
       <Wrapper>
@@ -78,13 +81,21 @@ const Navbar = () => {
           <Logo>Premier Mart</Logo>
         </Center>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
+        <Link to="/register">
+        <MenuItem>REGISTER</MenuItem>
+        </Link>
+         
+          <Link to="/login">
           <MenuItem>SIGN IN</MenuItem>
+          </Link>
+          
+          <Link to="/cart">
           <MenuItem>
-            <Badge badgeContent={4} color="primary">
+            <Badge badgeContent={quantity} color="primary">
               <ShoppingCartIcon color="action" />
             </Badge>
           </MenuItem>
+          </Link>
         </Right>
       </Wrapper>
     </Container>

@@ -6,6 +6,11 @@ import Navbar from "../components/Navbar";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import { mobile } from "../responsive";
+import StripeCheckout from "react-stripe-checkout";
+import { useEffect, useState } from "react";
+import { userRequest } from "../requestMethods";
+import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -136,6 +141,28 @@ color:white;
 font-weight:500;`;
 
 const Cart = () => {
+  const cart = useSelector((state) => state.cart);
+  const [stripeToken, setStripeToken] = useState(null);
+  const history = useHistory();
+
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const res = await userRequest.post("/checkout/payment", {
+          tokenId: stripeToken.id,
+          amount: 500,
+        });
+        history.push("/success", {
+          stripeData: res.data,
+          products: cart, });
+      } catch {}
+    };
+    stripeToken && makeRequest();
+  }, [stripeToken, cart.total, history]);
   return (
     <Container>
       <Navbar />
@@ -152,63 +179,41 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Info>
+          {cart.products.map((product) => (
             <Product>
               <ProductDetail>
                 <Image src="https://www.prada.com/content/dam/pradanux_products/U/UCS/UCS319/1YOTF010O/UCS319_1YOT_F010O_S_182_SLF.png" />
                 <Detail>
                   <ProductName>
-                    <b>Product:</b>JESSIE THUNDER SHOES
+                    <b>Product:</b>{product.title}
                   </ProductName>
                   <ProductId>
-                    <b>Id:</b>2565456
+                    <b>Id:</b>{product._id}
                   </ProductId>
-                  <ProductColor color="black" />
+                  <ProductColor color={product.color} />
                   <ProductSize>
-                    <b>Size:</b>21.4
+                    <b>Size:</b>{product.size}
                   </ProductSize>
                 </Detail>
               </ProductDetail>
               <PriceDetail>
                 <ProductAmountContainer>
                   <AddIcon />
-                  <ProductAmount>2</ProductAmount>
+                  <ProductAmount>{product.quantity}</ProductAmount>
                   <RemoveIcon />
                 </ProductAmountContainer>
-                <ProductPrice>$20</ProductPrice>
+                <ProductPrice> $ {product.price * product.quantity}</ProductPrice>
               </PriceDetail>
             </Product>
+          ))}
             <Hr />
-            <Product>
-              <ProductDetail>
-                <Image src="https://www.prada.com/content/dam/pradanux_products/U/UCS/UCS319/1YOTF010O/UCS319_1YOT_F010O_S_182_SLF.png" />
-                <Detail>
-                  <ProductName>
-                    <b>Product:</b>JESSIE THUNDER SHOES
-                  </ProductName>
-                  <ProductId>
-                    <b>Id:</b>2565456
-                  </ProductId>
-                  <ProductColor color="black" />
-                  <ProductSize>
-                    <b>Size:</b>21.4
-                  </ProductSize>
-                </Detail>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <AddIcon />
-                  <ProductAmount>2</ProductAmount>
-                  <RemoveIcon />
-                </ProductAmountContainer>
-                <ProductPrice>$20</ProductPrice>
-              </PriceDetail>
-            </Product>
+
           </Info>
           <Summary>
             <SummaryTitle>ODER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>SubTotal</SummaryItemText>
-              <SummaryItemPrice>$20</SummaryItemPrice>
+              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Shipping</SummaryItemText>
@@ -220,9 +225,20 @@ const Cart = () => {
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText >Total</SummaryItemText>
-              <SummaryItemPrice>$50</SummaryItemPrice>
+              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
-            <Button>CHECKOUT NOW</Button>
+            <StripeCheckout
+              name="Premier Mart"
+              image="https://avatars.githubusercontent.com/u/1486366?v=4"
+              billingAddress
+              shippingAddress
+              description={`Your total is $${cart.total}`}
+              amount={cart.total * 100}
+              token={onToken}
+              
+            >
+              <Button>CHECKOUT NOW</Button>
+            </StripeCheckout>
           </Summary>
          
         </Bottom>

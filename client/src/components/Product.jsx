@@ -3,6 +3,8 @@ import styled from "styled-components";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SavedSearch from "@mui/icons-material/SavedSearch";
+import { requirePropFactory } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const Info = styled.div`
   opacity: 0;
@@ -67,17 +69,22 @@ const Icon = styled.div`
 `;
 
 const Product = ({ item }) => {
+  
   return (
+   
     <Container>
       <Circle />
-      <Image src={item.img} />
-    
+      <Image src= {require("../images/"+item.img)} />
+      
       <Info>
         <Icon>
           <ShoppingCartIcon color="action" />
         </Icon>
         <Icon>
-          <SavedSearch />
+        <Link to={`/product/${item._id}`}>
+        <SavedSearch />
+        </Link>
+         
         </Icon>
         <Icon>
           <FavoriteBorderIcon color="action" />

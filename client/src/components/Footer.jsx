@@ -139,10 +139,10 @@ const Footer = () => {
           nuwanperera@gmaail.com
         </ContactItem>
         <PaymentMethods>
-          <PaymentImg color="EB001B" src={require("./images/masterCard.png")} />
-          <PaymentImg color="1A1F71" src={require("./images/Visa.png")} />
-          <PaymentImg color="000000" src={require("./images/Amazon.png")} />
-          <PaymentImg color="003087" src={require("./images/Paypal.png")} />
+          <PaymentImg color="EB001B" src={require("../images/masterCard.png")} />
+          <PaymentImg color="1A1F71" src={require("../images/Visa.png")} />
+          <PaymentImg color="000000" src={require("../images/Amazon.png")} />
+          <PaymentImg color="003087" src={require("../images/Paypal.png")} />
         </PaymentMethods>
       </Right>
     </Container>

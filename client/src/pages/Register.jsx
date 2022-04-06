@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import background from "../components/images/back.jpg";
+import background from "../images/back.jpg";
 import { mobile } from "../responsive";
 
 const Container = styled.div`

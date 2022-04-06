@@ -15,8 +15,18 @@ const corsOptions ={
 
 
 
+
 const app = express();
-app.use(cors(corsOptions));
+
+//app.use(cors(corsOptions));
+//enables cors
+app.use(cors({
+  'allowedHeaders': ['sessionId', 'Content-Type'],
+  'exposedHeaders': ['sessionId'],
+  'origin': '*',
+  'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  'preflightContinue': false
+}));
 
 dotenv.config();
 
