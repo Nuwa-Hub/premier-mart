@@ -21,6 +21,7 @@ export default function NewProduct() {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
+  
   const handleCat = (e) => {
     setCat(e.target.value.split(","));
   };
@@ -63,6 +64,7 @@ export default function NewProduct() {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           const product = { ...inputs, img: downloadURL, categories: cat };
           addProduct(product, dispatch);
+          //console.log(downloadURL);
         });
       }
     );

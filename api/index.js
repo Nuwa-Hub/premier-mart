@@ -5,28 +5,12 @@ const userRoute = require("./routes/user");
 const authRoute = require("./routes/auth");
 const productRoute = require("./routes/product");
 const cartRoute = require("./routes/cart");
-const oderRoute = require("./routes/order");
+const orderRoute = require("./routes/order");
 const cors=require("cors");
-const corsOptions ={
-   origin:'*', 
-   credentials:true,            //access-control-allow-credentials:true
-   optionSuccessStatus:200,
-}
-
-
-
 
 const app = express();
 
-//app.use(cors(corsOptions));
-//enables cors
-app.use(cors({
-  'allowedHeaders': ['sessionId', 'Content-Type'],
-  'exposedHeaders': ['sessionId'],
-  'origin': '*',
-  'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  'preflightContinue': false
-}));
+app.use(cors());
 
 dotenv.config();
 
@@ -42,7 +26,7 @@ app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/products", productRoute);
 app.use("/api/cart", cartRoute);
-app.use("/api/order", oderRoute);
+app.use("/api/orders", orderRoute);
 
 
 app.listen(process.env.PORT || 5000, () => {

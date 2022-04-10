@@ -7,10 +7,12 @@ const router = require("express").Router();
 //CREATE
 router.post("/", verifyTokenAndAdmin, async (req, res) => {
   const newProduct = new Product(req.body);
+ 
   try {
     const saveProduct = await newProduct.save();
     res.status(200).json(saveProduct);
   } catch (err) {
+    
     res.status(500).json(err);
   }
 });
@@ -45,7 +47,6 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 router.get("/find/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
-
     res.status(200).json(product);
   } catch (err) {
     res.status(501).json(err);
@@ -55,6 +56,7 @@ router.get("/find/:id", async (req, res) => {
 //GET ALL PRODUCTS
 router.get("/", async (req, res) => {
   const qNew = req.query.new;
+  
   const qCategory = req.query.category;
   try {
     let products;
